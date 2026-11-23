@@ -101,8 +101,25 @@ The package was checked against PalomarPolicy commit
   execution environment. The sandbox was not disabled. A subsequent standalone
   proof-export attempt did not produce a verified comparison or kernel-replay
   result. No Comparator, NanoDa, or Palomar mechanical pass is claimed.
+- Palomar intake then rejected the first submission: `lake comparator` reported
+  `Const does not match between challenge and target
+  'EntropyLean.WeightedFamily.IsSparse'`. The statements were identical; the
+  definition bodies differed only in an auxiliary proof. Lean abstracts the
+  instance proof inside `Module.finrank (ZMod 2) W` into `IsSparse._proof_1` and
+  reuses it, within one file, for `WeightedFamily.IsSparse`. `Challenge.lean`
+  defines both in one file; the library defined them in `Basic.lean` and
+  `Families.lean`, so its `WeightedFamily.IsSparse` had its own
+  `WeightedFamily.IsSparse._proof_1`. The single-law `IsSparse` now sits at the
+  top of `EntropyLean/Families.lean`, in the Challenge's order. `Challenge.lean`
+  is unchanged.
+- After that change, on GitHub Actions (23 November 2026): Lean 4.35.0
+  `lake comparator --inadvisably-no-sandbox`, with the Lean kernel only (NanoDa
+  not installed), printed `Your solution is okay!` and exited 0. A separate
+  declaration-by-declaration comparison of the Challenge and Solution
+  environments over the same dependency walk (20,107 constants) found no
+  difference. This run was unsandboxed and is not Palomar's verification.
 
-The ordinary Lean build and selected-result axiom checks passed. Submission
+The ordinary Lean build, selected-result axiom checks and an unsandboxed Comparator run passed. Submission
 eligibility remains conditional on a successful official full preflight for the
 exact public commit, as described below.
 
@@ -140,11 +157,11 @@ official full workflow below for the submission gate.
    exact repository, commit, and `comparator.json`. A successful source scan,
    local build, or standalone Comparator run does not replace this report.
 5. Check the repository's active registrations at
-   `https://data.palomar-registry.org/repositories/josiahpark/entropy-quotients-lean.json`.
+   `https://data.palomar-registry.org/repositories/josiahpark/entropy-palomar.json`.
    If the same registration identity exists, follow Palomar's versioning rules;
    do not resubmit an already registered commit as a new result.
 6. Submit the exact passing commit at the form. Use repository
-   `JosiahPark/entropy-quotients-lean`, configuration `comparator.json`, the root
+   `JosiahPark/entropy-palomar`, configuration `comparator.json`, the root
    project, and root `formalization.yaml`. Review the displayed abstract and
    authorization declaration.
 7. Review Palomar's private editorial result before deciding whether to register.
