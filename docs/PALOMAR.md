@@ -157,11 +157,11 @@ official full workflow below for the submission gate.
    exact repository, commit, and `comparator.json`. A successful source scan,
    local build, or standalone Comparator run does not replace this report.
 5. Check the repository's active registrations at
-   `https://data.palomar-registry.org/repositories/josiahpark/entropy-palomar.json`.
+   `https://data.palomar-registry.org/repositories/josiahpark/entropy-palomar-v2.json`.
    If the same registration identity exists, follow Palomar's versioning rules;
    do not resubmit an already registered commit as a new result.
 6. Submit the exact passing commit at the form. Use repository
-   `JosiahPark/entropy-palomar`, configuration `comparator.json`, the root
+   `JosiahPark/entropy-palomar-v2`, configuration `comparator.json`, the root
    project, and root `formalization.yaml`. Review the displayed abstract and
    authorization declaration.
 7. Review Palomar's private editorial result before deciding whether to register.
