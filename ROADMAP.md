@@ -27,9 +27,9 @@ not with `import Mathlib` (item B1d1 gives the reason).
 ## Done (v0.2, CI-verified at 9130247)
 
 - [x] Definitions: `entropyBits`, `conv`, `entropyIncrement`, `entropyDefect`, `interaction`,
-      `quotientLoss`, `IsSparse` (`EntropyLean/Basic.lean`); `WeightedFamily`, `meanEntropy`,
+      `quotientLoss` (`EntropyLean/Basic.lean`); `IsSparse`, `WeightedFamily`, `meanEntropy`,
       `meanInteraction`, `averagedLoss`, `WeightedFamily.IsSparse`, `quotient`, `convFamily`
-      (`EntropyLean/Families.lean`).
+      (`EntropyLean/Families.lean`; `IsSparse` moved there from `Basic.lean` for Comparator).
   - Written in the v0.2 consolidation, before the roadmap tasks; CI green at 9130247.
 - [x] Identities: `entropyBits_eq_sum`, `entropyDefect_eq`, `interaction_self`,
       `meanEntropy_quotient`, `conv_weights_sum`.

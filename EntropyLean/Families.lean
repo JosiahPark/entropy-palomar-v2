@@ -7,10 +7,18 @@ public import EntropyLean.Basic
 /-!
 # Finite weighted families (Section 2.2)
 
-A finite weighted family `𝒫 = (P_i, a_i)` of laws on one space with positive weights summing to
-one; the mean entropy `h(𝒫)`, mean interaction `e(𝒫)`, averaged subspace defect `F_𝒫(W)` and
-averaged λ-sparsity (equations (12)–(13)); the componentwise quotient family `q_G 𝒫` and the
-convolution family `𝒫 * 𝒫` with components `P_i * P_j` and weights `a_i a_j`.
+λ-sparsity of a single law (equation (6)); a finite weighted family `𝒫 = (P_i, a_i)` of laws on
+one space with positive weights summing to one; the mean entropy `h(𝒫)`, mean interaction
+`e(𝒫)`, averaged subspace defect `F_𝒫(W)` and averaged λ-sparsity (equations (12)–(13)); the
+componentwise quotient family `q_G 𝒫` and the convolution family `𝒫 * 𝒫` with components
+`P_i * P_j` and weights `a_i a_j`.
+
+Why `IsSparse` is here and not in `Basic.lean`: the definitions from `IsSparse` through
+`WeightedFamily.IsSparse` are restated in `Challenge.lean`, in this order, and Palomar's Comparator
+requires them to be the same kernel declarations. Lean abstracts the instance proof inside
+`Module.finrank (ZMod 2) W` into an auxiliary theorem `IsSparse._proof_1` and reuses it, within one
+file, for `WeightedFamily.IsSparse`. The two definitions must therefore share a file here too, in
+the same order, or `WeightedFamily.IsSparse` gets its own `_proof_1` and Comparator rejects it.
 
 What this file does NOT prove: none of the inequalities (14), (15) or the posterior closure
 Lemma 2.2; the only proofs are that the convolution weights sum to one and the definitional
@@ -20,6 +28,11 @@ identity `h(q_G 𝒫) = h(𝒫) - F_𝒫(G)`.
 namespace EntropyLean
 
 open scoped BigOperators
+
+/-- λ-sparsity of a single law (equation (6)): `H(Z | q_W Z) ≤ λ dim W` for every `W`. -/
+def IsSparse {V : Type*} [AddCommGroup V] [Module (ZMod 2) V]
+    (lam : ℝ) (P : PMF V) : Prop :=
+  ∀ W : Submodule (ZMod 2) V, quotientLoss P W ≤ lam * (Module.finrank (ZMod 2) W : ℝ)
 
 /-- A finite weighted family of laws on `V`. -/
 structure WeightedFamily (V : Type*) where

@@ -41,8 +41,8 @@ Proposition 9.3 is [docs/NUMERICAL_TABLE.md](docs/NUMERICAL_TABLE.md).
 
 | File | Contents | Proved |
 | --- | --- | --- |
-| `EntropyLean/Basic.lean` | Entropy in bits `H`, convolution, increment `D`, defect `E`, interaction `s`, subspace defect `F_P(W)`, single-law sparsity (eqs. (1), (6), (8), (10)) | `entropyBits_eq_sum`, `entropyDefect_eq` (`E = H − D`), `interaction_self` (`s(P,P) = E(P)`) |
-| `EntropyLean/Families.lean` | Weighted families, `h(𝒫)`, `e(𝒫)`, `F_𝒫(W)`, averaged sparsity, quotient family `q_G 𝒫`, convolution family `𝒫 * 𝒫` (eqs. (12)–(13)) | `meanEntropy_quotient`, `conv_weights_sum` |
+| `EntropyLean/Basic.lean` | Entropy in bits `H`, convolution, increment `D`, defect `E`, interaction `s`, subspace defect `F_P(W)` (eqs. (1), (8), (10)) | `entropyBits_eq_sum`, `entropyDefect_eq` (`E = H − D`), `interaction_self` (`s(P,P) = E(P)`) |
+| `EntropyLean/Families.lean` | Single-law sparsity (eq. (6)), weighted families, `h(𝒫)`, `e(𝒫)`, `F_𝒫(W)`, averaged sparsity, quotient family `q_G 𝒫`, convolution family `𝒫 * 𝒫` (eqs. (6), (12)–(13)) | `meanEntropy_quotient`, `conv_weights_sum` |
 | `EntropyLean/Bernoulli.lean` | Binary entropy `h₂`, Bernoulli increment and defect (Prop. 9.3) | `binaryEntropy_eq_zero_of_not_mem`, `bernoulli_parameter_mem_Ioo` |
 | `EntropyLean/Statements.lean` | Theorem 1.1, Theorem 1.2, Theorem 8.2, Lemma 4.1, Lemma 9.1, Proposition 9.3; with no hypothesis, (36), Lemmas 7.1 and 8.1, Corollaries 9.2 and 9.4 | All of them. Theorems 1.1, 1.2 and 8.2 from `martonBound`; the file ends with checks that fail the build if one of its theorems depends on `sorry` or on a non-standard axiom |
 | `EntropyLean/PFRBridge.lean` | The entropic Marton bound (35) from the PFR project | `martonBound` ((35) with the paper's constant 6) and `martonBoundConst_five` (constant 5), and the agreement of PFR's entropy, Ruzsa distance and uniform variables with the ones used here (roadmap item B1) |

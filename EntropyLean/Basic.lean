@@ -8,8 +8,8 @@ public import EntropyLean.MathlibForPFR
 # Core entropy definitions
 
 Shannon entropy in bits, convolution of laws, the entropy increment `D` and defect `E` of
-arXiv:2610.38525 (equation (1)), the subspace defect `F_P(W) = H(P) - H(q_W P)` (equation (10)),
-and λ-sparsity of a single law (equation (6)).
+arXiv:2610.38525 (equation (1)) and the subspace defect `F_P(W) = H(P) - H(q_W P)`
+(equation (10)). λ-sparsity of a single law (equation (6)) is in `EntropyLean/Families.lean`.
 
 Entropy is written as a `tsum`, so it is defined for laws on any type (in particular on the
 quotients `V ⧸ W`, without needing a `Fintype` instance there); on a finite type it agrees with
@@ -71,9 +71,7 @@ noncomputable def quotientLoss {V : Type*} [AddCommGroup V] [Module (ZMod 2) V]
     (P : PMF V) (W : Submodule (ZMod 2) V) : ℝ :=
   entropyBits P - entropyBits (P.map fun v => W.mkQ v)
 
-/-- λ-sparsity of a single law (equation (6)): `H(Z | q_W Z) ≤ λ dim W` for every `W`. -/
-def IsSparse {V : Type*} [AddCommGroup V] [Module (ZMod 2) V]
-    (lam : ℝ) (P : PMF V) : Prop :=
-  ∀ W : Submodule (ZMod 2) V, quotientLoss P W ≤ lam * (Module.finrank (ZMod 2) W : ℝ)
+-- λ-sparsity of a single law (`IsSparse`, equation (6)) is defined in `EntropyLean/Families.lean`,
+-- next to the averaged version; see the note there.
 
 end EntropyLean
