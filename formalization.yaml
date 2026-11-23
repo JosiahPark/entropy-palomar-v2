@@ -1,0 +1,189 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/mathlib-initiative/formalization.yaml/main/schema/formalization.schema.json
+version: v0.4
+
+project:
+  name: Dimension-free exponential entropy quotients over F₂
+  description: >-
+    Formalization of dimension-independent exponential entropy-quotient bounds
+    for laws on finite vector spaces over F₂. For every ε > 0 a subspace of
+    dimension at most 2^(320(1+ε)/ε) H(X) makes the quotient entropy at most
+    (1+ε) times its independent-doubling entropy increment, which does not
+    exceed the original increment. The development also proves logarithmic
+    rigidity for sparse laws and finite weighted families, necessity of
+    exponential dependence on 1/ε, two-input almost-additivity, and concentration
+    of moderate-doubling sets on subspace cosets. Entropies are in bits. The
+    entropic Marton input is obtained from the pinned PFR formalization through
+    a proved translation to probability mass functions. The selected results
+    are Theorems 1.1, 1.2 and 8.2, Proposition 9.3, and Corollaries 9.2 and 9.4
+    of arXiv:2610.38525v1; no optimality of the constant 320 is claimed.
+  authors:
+    - Josiah Park
+  responsible_maintainers:
+    - Josiah Park
+  license: MIT
+
+classification:
+  arxiv: [math.CO, cs.IT]
+  msc2020: [11B30, 94A17]
+
+sources:
+  - title: Dimension-free exponential entropy quotients over F₂
+    authors: [Josiah Park]
+    id: https://arxiv.org/abs/2610.38525v1
+    type: paper
+    location: Theorems 1.1, 1.2, 8.2; Proposition 9.3; Corollaries 9.2, 9.4
+    relationship: formalizes
+    author_endorsement: participated
+    note: >-
+      The source PDF is included at paper/2610.38525v1.pdf. Its statements and
+      the explicit definitions in Challenge.lean determine the advertised scope.
+  - title: On a conjecture of Marton
+    authors: [W. T. Gowers, Ben Green, Freddie Manners, Terence Tao]
+    id: https://arxiv.org/abs/2311.05762v1
+    type: paper
+    location: Theorem 1.2 and Lemma A.2
+    relationship: background
+    note: >-
+      Source of the entropic polynomial Freiman–Ruzsa input and entropy framework.
+      The Lean proof imports PFR's improved entropic theorem and weakens the
+      resulting one-variable constant 5 to the paper's constant 6.
+  - title: Improved PFR
+    id: https://github.com/teorth/pfr/blob/ebe2d96230b1abb190f74592aace441a0f10fe09/PFR/ImprovedPFR.lean
+    type: other
+    relationship: background
+    note: >-
+      The pinned PFR development implements the improved bound attributed in its
+      README to Jyun-Jie Liao. EntropyLean.PFRBridge uses
+      entropic_PFR_conjecture_improv; this external proof is not original work
+      of the present repository.
+
+related_formalizations:
+  - id: https://github.com/teorth/pfr/tree/ebe2d96230b1abb190f74592aace441a0f10fe09
+    relationship: builds-on
+    note: >-
+      The PFR proof supplies the entropic Marton theorem. PFRBridge proves the
+      translation from random variables and entropy in nats to PMFs and entropy
+      in bits. Its proof is imported, not replaced by an axiom.
+  - id: https://github.com/leanprover-community/mathlib4/tree/56a005855ea17e0b0958f73ec801ae140b0a1679
+    relationship: builds-on
+    note: >-
+      Mathlib supplies probability mass functions, real logarithms, finite
+      linear algebra, topology, and proof automation. Challenge imports only
+      this canonical Mathlib dependency and its pinned dependency closure.
+
+status:
+  scope: >-
+    comparator.json selects seven declarations re-exported by Solution.lean.
+    These are the main paper results listed in alignment below; the supporting
+    results and constant improvements elsewhere are not additional registered
+    claims. Solution checks all seven transitive axiom closures at compilation.
+    The unrelated FeatureMap stub has 2 textual sorry occurrences, and archive/
+    and missing/ contain 45 more. The conservative sorry_count below counts all
+    47 occurrences outside Challenge, including these unselected historical
+    drafts; it does not assert 47 gaps in the selected proof graph. Challenge's
+    seven intentional theorem placeholders are excluded. Historical drafts are
+    not build targets, and no correctness claim is made for them. The listed
+    axioms are the permitted axioms for the selected results.
+  sorry_count: 47
+  axioms: [propext, Classical.choice, Quot.sound]
+
+automation:
+  methods:
+    - method: agent
+      models: [Claude Fable 5.2, Claude Opus 5.5]
+      framework: Claude Code and Claude desktop sessions
+      tool_setup: >-
+        AI-assisted Lean proof development and repairs, as documented in
+        ROADMAP.md and the repository commit history. These model names are
+        recorded in commit trailers; not every historical session is recoverable.
+    - method: agent
+      models: [Grok (version not recorded)]
+      framework: Grok tasks
+      tool_setup: >-
+        Numerical diagnostics and parallel formalization attempts documented in
+        numerics/ and docs/PARALLEL_EFFORTS.md. Numerical outputs are not proof
+        premises and the independent draft attempts are not substitutes for
+        the compiled EntropyLean proofs.
+    - method: other
+      models: [OpenAI GPT-6 Astra]
+      framework: OpenAI tools
+      tool_setup: >-
+        The source manuscript acknowledges extensive assistance with informal
+        proof development, checking, literature retrieval, drafting, and
+        computational diagnostics. This is source-manuscript provenance.
+    - method: agent
+      models: [OpenAI Codex (exact model version not recorded)]
+      framework: ChatGPT Work Mode
+      tool_setup: >-
+        Palomar submission packaging, module-system migration, metadata,
+        independent statement transcription, validation workflow, and local
+        checks in November 2026.
+  spend_usd: not tracked
+  notes: >-
+    Josiah Park is the sole human author and responsible maintainer, as confirmed
+    for this submission update. AI systems are tools rather than authors.
+    Available evidence does not reconstruct every historical model, prompt,
+    session, cost, or hardware configuration. No independent human peer review
+    is claimed.
+
+fidelity:
+  divergences: >-
+    Theorems 1.1, 1.2 and 8.2 use arbitrary finite F₂-modules rather than a
+    chosen coordinate space. Weighted-family indices are finite types in Type.
+    Proposition 9.3 is stated as: for every c < 2, eventually
+    c ≤ ε log₂ C(ε) as ε tends to zero from above. This expresses the extended
+    liminf lower bound without the junk value of real-valued liminf for an
+    unbounded function. The original-input hypothesis uses D(X), as in the
+    paper. Corollary 9.4 is represented by two declarations, each existentially
+    quantified over a subspace, rather than a single simultaneous conjunction.
+    The latter is not claimed by this configuration. Novelty has not been
+    independently established, and constant 320 is not claimed to be optimal.
+
+review:
+  status: agent-reviewed
+  reviewers: [OpenAI Codex]
+  notes: >-
+    Submission packaging and selected statement transcription were checked
+    against the repository and its included source paper. This is not independent
+    human mathematical review or Palomar acceptance. Local compilation and
+    mechanical evidence, with their limits, are recorded in docs/PALOMAR.md.
+    Run the complete pinned Palomar preflight on the exact public commit before
+    intake; a local build or standalone Comparator result does not replace it.
+
+alignment:
+  namespace: EntropyLean
+  statements:
+    - source: Theorem 1.1, equations (2)–(3)
+      lean: EntropyLean.exponential_entropy_quotient
+      module: EntropyLean.Statements
+      status: proved in the source development; selected for Comparator
+    - source: Theorem 1.2, equation (7)
+      lean: EntropyLean.sparse_rigidity
+      module: EntropyLean.Statements
+      status: proved in the source development; selected for Comparator
+    - source: Theorem 8.2
+      lean: EntropyLean.weighted_family_rigidity
+      module: EntropyLean.Statements
+      status: proved in the source development; selected for Comparator
+    - source: Proposition 9.3
+      lean: EntropyLean.exponential_scale_necessary
+      module: EntropyLean.Statements
+      status: proved in eventual-bound form; selected for Comparator
+    - source: Corollary 9.2
+      lean: EntropyLean.two_input_almost_additivity
+      module: EntropyLean.Statements
+      status: proved in the source development; selected for Comparator
+    - source: Corollary 9.4, averaged coset concentration
+      lean: EntropyLean.coset_concentration
+      module: EntropyLean.Statements
+      status: proved in the source development; selected for Comparator
+    - source: Corollary 9.4, existence of a large coset intersection
+      lean: EntropyLean.exists_large_coset
+      module: EntropyLean.Statements
+      status: proved as a separate existential statement; selected for Comparator
+
+acknowledgements: >-
+  Lean and Mathlib contributors; the PFR formalization contributors; Gowers,
+  Green, Manners and Tao for the entropic PFR theorem; Jyun-Jie Liao for the
+  improved PFR argument used by the imported development. Dependency and cited
+  source licenses remain their own; this repository's code is licensed under MIT.

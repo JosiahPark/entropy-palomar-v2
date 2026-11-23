@@ -1,0 +1,20 @@
+{
+  "challenge_module": "Challenge",
+  "solution_module": "Solution",
+  "theorem_names": [
+    "EntropyLean.exponential_entropy_quotient",
+    "EntropyLean.sparse_rigidity",
+    "EntropyLean.weighted_family_rigidity",
+    "EntropyLean.exponential_scale_necessary",
+    "EntropyLean.two_input_almost_additivity",
+    "EntropyLean.coset_concentration",
+    "EntropyLean.exists_large_coset"
+  ],
+  "definition_names": [],
+  "permitted_axioms": [
+    "propext",
+    "Quot.sound",
+    "Classical.choice"
+  ],
+  "enable_nanoda": true
+}
